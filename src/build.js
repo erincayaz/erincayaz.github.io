@@ -32,13 +32,15 @@ const formatDate = (iso) =>
   });
 
 const template = readFileSync("src/template.html", "utf8");
-const render = ({ title, content, root }) =>
+// Bio + GitHub link, shown on the home page only
+const intro = `    <p>${escapeHtml(site.bio)} <a href="${escapeHtml(site.github)}">GitHub</a></p>`;
+
+const render = ({ title, content, root, showIntro = false }) =>
   template
     .replaceAll("{{root}}", root)
     .replaceAll("{{pageTitle}}", escapeHtml(title))
     .replaceAll("{{siteTitle}}", escapeHtml(site.title))
-    .replaceAll("{{bio}}", escapeHtml(site.bio))
-    .replaceAll("{{github}}", escapeHtml(site.github))
+    .replace("{{intro}}", () => (showIntro ? intro : ""))
     .replace("{{content}}", () => content);
 
 function write(path, html) {
@@ -77,6 +79,6 @@ ${p.html}
 const list = posts
   .map((p) => `<li><a href="posts/${p.slug}/">${escapeHtml(p.title)}</a><time datetime="${p.date}">${formatDate(p.date)}</time></li>`)
   .join("\n");
-write(`${OUT_DIR}/index.html`, render({ title: site.title, content: `<ul class="posts">\n${list}\n</ul>`, root: "" }));
+write(`${OUT_DIR}/index.html`, render({ title: site.title, content: `<ul class="posts">\n${list}\n</ul>`, root: "", showIntro: true }));
 
 console.log(`Built ${posts.length} post(s) into ${OUT_DIR}/`);
