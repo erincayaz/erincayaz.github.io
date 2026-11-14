@@ -4,7 +4,8 @@ import { marked } from "marked";
 // ---- Site settings: edit these ----
 const site = {
   title: "Erinç Ayaz",
-  bio: "Short bio goes here. Write a sentence or two about yourself.",
+  bio: "Welcome to my piece on the internet. I am Erinc, a software developer who also likes " +
+  "to write and create random projects.",
   github: "https://github.com/erincayaz",
 };
 
@@ -33,7 +34,8 @@ const formatDate = (iso) =>
 
 const template = readFileSync("src/template.html", "utf8");
 // Bio + GitHub link, shown on the home page only
-const intro = `    <p>${escapeHtml(site.bio)} <a href="${escapeHtml(site.github)}">GitHub</a></p>`;
+const intro = `    <p>${escapeHtml(site.bio)}</p>
+    <p><a href="${escapeHtml(site.github)}">GitHub</a></p>`;
 
 const render = ({ title, content, root, showIntro = false }) =>
   template

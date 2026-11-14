@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node src/build.js",
-    "serve": "node src/build.js && node src/serve.js"
+    "serve": "node src/serve.js"
   },
   "dependencies": {
     "marked": "^15.0.0"
