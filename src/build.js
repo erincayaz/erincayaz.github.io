@@ -54,6 +54,9 @@ function write(path, html) {
 rmSync(OUT_DIR, { recursive: true, force: true });
 copyFileSync("src/style.css", (mkdirSync(OUT_DIR, { recursive: true }), `${OUT_DIR}/style.css`));
 
+// Unlinked easter-egg page: no template, copied as-is
+write(`${OUT_DIR}/seviyor-musun/index.html`, readFileSync("src/seviyor-musun.html", "utf8"));
+
 const posts = [];
 for (const file of readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"))) {
   const { meta, body } = parseFrontmatter(readFileSync(`${POSTS_DIR}/${file}`, "utf8"));
